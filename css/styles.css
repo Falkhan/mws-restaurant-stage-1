@@ -1,9 +1,10 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 /* CSS Document */
 
 body,td,th,p{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10pt;
+	font-family: "Open Sans", Arial, Helvetica, sans-serif;
+	font-size: 12pt;
 	color: #333;
 	line-height: 1.5;
 }
@@ -14,7 +15,7 @@ body {
 }
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10pt;
+	font-size: 1rem;
 	color: #333;
 }
 a {
@@ -38,11 +39,13 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
+	box-sizing: border-box;
+	padding: 80px 0 0 0;
 }
 #footer {
   background-color: #444;
   color: #aaa;
-  font-size: 8pt;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   padding: 25px;
   text-align: center;
@@ -54,13 +57,16 @@ nav {
   height: 80px;
   background-color: #252831;
   text-align:center;
+	position: fixed;
+	z-index: 1;
+	box-shadow: 0 4px 10px black;
 }
 nav h1 {
   margin: auto;
 }
 nav h1 a {
   color: #fff;
-  font-size: 14pt;
+  font-size: 1.4rem;
   font-weight: 200;
   letter-spacing: 10px;
   text-transform: uppercase;
@@ -106,28 +112,43 @@ nav h1 a {
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
   width: 100%;
-  height: 50px;
-  background-color: #3397DB;
+  height: 200px;
+  background-color: #333949;
   align-items: center;
+	text-align: center;
+	padding: 20px 0;
 }
 .filter-options h2 {
   color: white;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: normal;
-  line-height: 1;
+  line-height: 1rem;
   margin: 0 20px;
+	padding: 32px 0;
 }
 .filter-options select {
-  background-color: white;
-  border: 1px solid #fff;
-  font-family: Arial,sans-serif;
-  font-size: 11pt;
+  background-color: #333949;
+  border: 2px solid #fff;
+  font-family: inherit;
+  font-size: 0.9rem;
+	color: white;
+	font-weight: bold;
   height: 35px;
   letter-spacing: 0;
   margin: 10px;
-  padding: 0 10px;
-  width: 200px;
+  padding: 0 32px;
+  width: 70%;
+	border-radius: 15px;
+	display: inline-block;
+	/* Make the default dropdown icon disappear */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
+.filter-options select:hover {
+	  background-color: #3e4559;
+}
+
 
 /* ====================== Restaurant Listing ====================== */
 #restaurants-list {
