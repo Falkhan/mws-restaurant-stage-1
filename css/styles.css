@@ -9,7 +9,8 @@ body,td,th,p{
 	line-height: 1.5;
 }
 body {
-	background-color: #fdfdfd;
+	background-color: #ecf0f1;
+  box-shadow: 0px 5px 12px black;
 	margin: 0;
 	position:relative;
 }
@@ -19,11 +20,11 @@ ul, li {
 	color: #333;
 }
 a {
-	color: orange;
+	color: black;
 	text-decoration: none;
 }
 a:hover, a:focus {
-	color: #3397db;
+	color: #2c3e50;
 	text-decoration: none;
 }
 a img{
@@ -37,7 +38,6 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 	display: block;
 }
 #maincontent {
-  background-color: #f3f3f3;
   min-height: 100%;
 	box-sizing: border-box;
 	padding: 80px 0 0 0;
@@ -55,22 +55,23 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 nav {
   width: 100%;
   height: 80px;
-  background-color: #252831;
   text-align:center;
 	position: fixed;
 	z-index: 1;
-	box-shadow: 0 4px 10px black;
+	box-shadow: 0 2px 3px black;
+  background-color: white;
 }
 nav h1 {
   margin: 5px;
 }
 
 nav h1 a {
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 200;
+  color: black;
+  font-size: 1.6rem;
+  font-weight: bold;
   letter-spacing: 10px;
   text-transform: uppercase;
+  font-family: "Times New Roman";
 }
 #breadcrumb {
     padding: 10px 40px 16px;
@@ -115,24 +116,24 @@ nav h1 a {
   width: auto;
   margin: 0 auto;
 	display: block;
-  background-color: #333949;
+  background-color: white;
   align-items: center;
 	text-align: center;
 	padding: 20px 0;
 }
 .filter-options h2 {
-  color: white;
+  color: black;
   font-size: 1.5rem;
   font-weight: normal;
   line-height: 1rem;
 	padding: 12px 0;
 }
 .filter-options select {
-  background-color: #333949;
-  border: 2px solid #fff;
+  background-color: white;
+  border: 2px solid black;
   font-family: inherit;
   font-size: 0.9rem;
-	color: white;
+	color: black;
 	font-weight: bold;
   height: 35px;
   letter-spacing: 0;
@@ -142,13 +143,16 @@ nav h1 a {
 	border-radius: 15px;
 	display: inline-block;
 	max-width: 400px;
+  transition: background-color 0.3s;
+	transition: color 0.5s;
 }
 .filter-options select:hover {
-	  background-color: #3e4559;
+	  background-color: #95a5a6;
+		color: white;
 }
 /* ====================== Restaurant Listing ====================== */
 #restaurants-list {
-  background-color: #f3f3f3;
+  background-color: white;
   list-style: outside none none;
 	display: flex;
 	flex-wrap: wrap;
@@ -157,9 +161,10 @@ nav h1 a {
 	width: 100%;
 	box-sizing: border-box;
 
+
 }
 #restaurants-list li {
-  background-color: #fff;
+  background-color: #ecf0f1;
   border: 2px solid #ccc;
   font-family: Arial,sans-serif;
   min-height: 380px;
@@ -177,7 +182,7 @@ nav h1 a {
   min-width: 100%;
 }
 #restaurants-list li h1 {
-  color: #f18200;
+  color: black;
   font-family: "Open Sans", Arial,sans-serif;
   font-size: 1.5rem;
   font-weight: bold;
@@ -191,9 +196,9 @@ nav h1 a {
   font-size: 1.2rem;
 }
 #restaurants-list li a {
-	background-color: orange;
-	color: white;
-  border: 3px solid orange;
+	background-color: white;
+	color: #ccc;
+  border: 3px solid #ccc;
 	font-weight: bold;
   display: inline-block;
   font-size: 0.9rem;
@@ -203,23 +208,16 @@ nav h1 a {
   text-decoration: none;
   text-transform: uppercase;
 	border-radius: 15px;
+  transition: border 0.5s;
+  transition: color 0.5s;
 }
 
 #restaurants-list li a:hover {
-	  background-color: white;
-		color: orange;
+	  border: 3px solid black;
+		color: black;
 }
 
 
-@media screen and (min-width: 600px){
-	#restaurants-list li {
-		width:42vw;
-		margin: 10px auto;
-}
-	#restaurants-list li a{
-		font-size: 1.5rem;
-	}
-}
 
 
 
@@ -331,7 +329,6 @@ nav h1 a {
 	body{
 		width: 1000px;
 		margin: 0 auto;
-		background-color: #b9b9b9;
 	}
 	nav{
 		width: 1000px;
@@ -347,11 +344,11 @@ nav h1 a {
 	#restaurant-container, #reviews-container{
 		box-sizing: border-box;
 		margin: 15px auto;
-		width: 42vw;
+		width: 30vw;
 
 }
 
 	#restaurants-list li {
-		width:18vw;
+		width:30%;
 		margin: 15px auto;
 }
