@@ -11,7 +11,7 @@ body,td,th,p{
 body {
 	background-color: #ecf0f1;
   box-shadow: 0px 2px 2px black;
-	margin: 0;
+	margin: 0 auto;
 }
 ul, li {
 	font-family: "Open Sans",Arial, Helvetica, sans-serif;
@@ -39,7 +39,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #maincontent {
   min-height: 100%;
 	box-sizing: border-box;
-	padding: 80px 0 0 0;
+	padding: 120px 0 0 0;
+	background-color: white;
 }
 #footer {
   background-color: #444;
@@ -54,6 +55,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 	color: white;
 }
 /* ====================== Navigation ====================== */
+
 nav {
   width: 100%;
   text-align:center;
@@ -83,34 +85,14 @@ nav h1 a {
     width: calc(50% - 80px);
 }
 
-/* Display list items side by side */
-#breadcrumb li {
-    display: inline;
-}
 
-/* Add a slash symbol (/) before/behind each list item */
-#breadcrumb li+li:before {
-    padding: 8px;
-    color: black;
-    content: "/\00a0";
-}
-
-/* Add a color to all links inside the list */
-#breadcrumb li a {
-    color: #0275d8;
-    text-decoration: none;
-}
-
-/* Add a color on mouse-over */
-#breadcrumb li a:hover {
-    color: #01447e;
-    text-decoration: underline;
-}
 /* ====================== Map ====================== */
 #map {
   height: 400px;
   width: 100%;
   background-color: #ccc;
+	border-top: 2px #ccc solid;
+	border-bottom: 2px #ccc solid;
 }
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
@@ -121,6 +103,7 @@ nav h1 a {
   background-color: white;
   align-items: center;
 	text-align: center;
+	border-bottom: 2px #ccc solid;
 }
 .filter-options h2 {
   color: black;
@@ -146,9 +129,10 @@ nav h1 a {
 	max-width: 400px;
   transition: border 0.5s;
 }
-.filter-options select:hover {
-	  border: 3px solid #95a5a6;
+.filter-options select:hover, filter-options select:focus{
+	  border: 3px solid #95a5a6 !important;
 }
+
 /* ====================== Restaurant Listing ====================== */
 #restaurants-list {
   background-color: white;
@@ -210,7 +194,7 @@ nav h1 a {
   transition: color 0.5s;
 }
 
-#restaurants-list li a:hover {
+#restaurants-list li a:hover, #restaurants-list li a:focus{
 	  border: 3px solid black;
 		color: black;
 }
@@ -223,8 +207,8 @@ nav h1 a {
 .inside #maincontent{
 	box-sizing: border-box;
 	padding: 10px 0;
-	display: flex;
-	flex-wrap: wrap;
+	display: block;
+	padding: 120px 0;
 }
 
 .inside #map-container {
