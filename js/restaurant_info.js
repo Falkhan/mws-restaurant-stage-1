@@ -14,7 +14,6 @@ window.initMap = () => {
         center: restaurant.latlng,
         scrollwheel: false
       });
-      fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
@@ -121,7 +120,7 @@ createReviewHTML = (review) => {
   const name = document.createElement('p');
   name.innerHTML = review.name;
   const aria_label = document.createAttribute("aria-label");
-  aria_label.value = "Review by" + review.name;
+  aria_label.value = "Review by " + review.name;
   name.setAttributeNode(aria_label);
   name.setAttribute("tabindex","0");
   li.appendChild(name);
@@ -144,15 +143,7 @@ createReviewHTML = (review) => {
   return li;
 }
 
-/**
- * Add restaurant name to the breadcrumb navigation menu
- */
-fillBreadcrumb = (restaurant=self.restaurant) => {
-  const breadcrumb = document.getElementById('breadcrumb');
-  const li = document.createElement('li');
-  li.innerHTML = restaurant.name;
-  breadcrumb.appendChild(li);
-}
+
 
 /**
  * Get a parameter by name from page URL.
