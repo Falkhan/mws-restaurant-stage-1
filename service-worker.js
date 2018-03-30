@@ -39,6 +39,7 @@ self.addEventListener('install', function(e){
   console.log("[ServiceWorker] Installed")
 
   e.waitUntil(
+    // Cache all files from the list
     caches.open(cacheName).then(function(cache){
       console.log("[ServiceWorker] Caching cacheFiles");
       return cache.addAll(cacheFiles);
@@ -46,12 +47,14 @@ self.addEventListener('install', function(e){
   )
 })
 
+// Listen for activate events
 self.addEventListener('activate', function(e){
   console.log("[ServiceWorker] Activated")
   e.waitUntil(
     caches.keys().then(function(cacheNames){
       return Promise.all(cacheNames.map(function(thisCacheName){
         if (thisCacheName !== cacheName){
+          // Remove old cachefiles
           console.log("[ServiceWorker] Removing Cached Files from " + thisCacheName);
           return caches.delete(thisCacheName);
 
@@ -61,11 +64,14 @@ self.addEventListener('activate', function(e){
   )
 })
 
-self.addEventListener('fetch', function(event) {
-  console.log("[ServiceWorker] fetching data", event.request.url);
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      return response || fetch(event.request);
+// Listen for fetch events
+self.addEventListener('fetch', function(et) {
+  console.log("[ServiceWorker] fetching data", e.request.url);
+  e.respondWith(
+    // Look for the request in cache
+    caches.match(e.request).then(function(response) {
+      // Send a response from cache if there is one; if not, fetch it from the web
+      return response || fetch(e.request);
     })
   );
 });
