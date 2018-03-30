@@ -305,22 +305,21 @@ nav h1 a {
 	#restaurants-list li {
 		width:33%;
 		margin: 15px auto;
-}
+	}
 
-#content-wrapper{
-	margin: 0 auto;
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
+	#content-wrapper{
+		margin: 0 auto;
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
 
-}
-#restaurant-container, #reviews-container{
-	box-sizing: border-box;
-	margin: 15px auto;
-	width: 45%;
+	}
 
-}
-
+	#restaurant-container, #reviews-container{
+		box-sizing: border-box;
+		margin: 15px auto;
+		width: 45%;
+	}
 }
 
 
@@ -330,24 +329,26 @@ nav h1 a {
 		width: 1200px;
 		margin: 0 auto;
 	}
+
 	nav{
 		width: 1200px;
 	}
+
 	#content-wrapper{
 		margin: 0 auto;
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
-
 	}
+
 	#restaurant-container, #reviews-container{
 		box-sizing: border-box;
 		margin: 15px auto;
 		width: 45%;
-
-}
+	}
 
 	#restaurants-list li {
 		width:25%;
 		margin: 15px auto;
+	}
 }
