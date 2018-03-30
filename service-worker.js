@@ -1,6 +1,7 @@
-var cacheName = 'v2';
+var cacheName = 'v15';
 var cacheFiles = [
   '/',
+  '/service-worker.js',
   '/data/restaurants.json',
   '/index.html',
   '/restaurant.html',
@@ -16,10 +17,21 @@ var cacheFiles = [
   '/img/8.jpg',
   '/img/9.jpg',
   '/img/10.jpg',
-  '/js/app.js',
+  '/app.js',
   '/js/dbhelper.js',
   '/js/main.js',
-  '/js/restaurant_info.js'
+  '/js/restaurant_info.js',
+  '/restaurant.html?id=1',
+  '/restaurant.html?id=2',
+  '/restaurant.html?id=3',
+  '/restaurant.html?id=4',
+  '/restaurant.html?id=5',
+  '/restaurant.html?id=6',
+  '/restaurant.html?id=7',
+  '/restaurant.html?id=8',
+  '/restaurant.html?id=9',
+  '/restaurant.html?id=10',
+
 ]
 
 
@@ -49,38 +61,11 @@ self.addEventListener('activate', function(e){
   )
 })
 
-self.addEventListener('fetch', function(e){
-  console.log("[ServiceWorker] Fetching", e.request.url);
-
-  e.respondWith(
-
-    caches.match(e.request)
-
-      .then(function(response){
-        if(response){
-          console.log("[ServiceWorker] found in cache", e.request.url, response);
-          return response;
-        }
-
-        var requestClone = e.request.clone();
-        fetch(requestClone)
-          .then(function(response){
-            if (!response){
-              console.log("[ServiceWorker] No response from fetch");
-              return response;
-              }
-            var responseClone = response.clone();
-
-            caches.open(cacheName).then(function(cache){
-
-              console.log("[ServiceWorker] New Data", e.request.url);
-              cache.put(e.request, responseClone);
-              return response;
-
-            }); // end open caches
-          }).catch(function(err){
-              console.log("[ServiceWorker] Error fetching & caching new data", err);
-            });
-        }) // end match
-  ); // end e.respondWith
+self.addEventListener('fetch', function(event) {
+  console.log("[ServiceWorker] fetching data", event.request.url);
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
+  );
 });
