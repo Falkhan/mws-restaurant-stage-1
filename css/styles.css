@@ -14,7 +14,6 @@ body {
 	margin: 0 auto;
 }
 ul, li {
-	font-family: "Open Sans",Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	color: #333;
 }
@@ -68,21 +67,13 @@ nav {
 
 
 nav h1 a {
-  color: black;
   font-size: 1.6rem;
   font-weight: bold;
   letter-spacing: 10px;
   text-transform: uppercase;
   font-family: "Times New Roman";
 	width: 100%;
-}
-#breadcrumb {
-    padding: 10px 40px 16px;
-    list-style: none;
-    background-color: #eee;
-    font-size: 17px;
-    margin: 0;
-    width: calc(50% - 80px);
+	padding: 5px;
 }
 
 
