@@ -65,7 +65,7 @@ self.addEventListener('activate', function(e){
 })
 
 // Listen for fetch events
-self.addEventListener('fetch', function(et) {
+self.addEventListener('fetch', function(e) {
   console.log("[ServiceWorker] fetching data", e.request.url);
   e.respondWith(
     // Look for the request in cache
