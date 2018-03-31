@@ -12,18 +12,18 @@
 </head>
 
 <body class="inside">
+
   <!-- Beginning header -->
   <header>
-    <!-- Beginning nav -->
-    <nav>
       <h1><a href="/" title="Return to homepage">Restaurant Reviews</a></h1>
-    </nav>
+
     <!-- Beginning breadcrumb -->
-    <ul aria-label="Breadcrumb" id="breadcrumb" >
-      <li><a href="/">Home</a></li>
-    </ul>
+    <nav aria-label="Breadcrumb">
+      <ol aria-label="Breadcrumb" id="breadcrumb" >
+        <li><a href="/">Home</a></li>
+      </ol>
+    </nav>
     <!-- End breadcrumb -->
-    <!-- End nav -->
   </header>
   <!-- End header -->
 
@@ -31,13 +31,13 @@
   <main id="maincontent">
     <!-- Beginning map -->
     <section id="map-container">
-      <div id="map" aria-label="Map" tabindex="0"></div>
+      <div id="map" role="application" tabindex="0" aria-label="Map of restaurants in New York"></div>
     </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
     <div id="content-wrapper">
       <section id="restaurant-container">
-        <h1 id="restaurant-name" tabindex="0"></h1>
+        <h2 id="restaurant-name" tabindex="0"></h1>
         <img id="restaurant-img">
         <p id="restaurant-cuisine" tabindex="0"></p>
         <p id="restaurant-address"  tabindex="0"></p>

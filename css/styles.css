@@ -73,7 +73,7 @@ header {
   background-color: white;
 }
 
-nav h1 a {
+header h1 a {
   font-size: 1.6em;
   font-weight: bold;
   letter-spacing: 10px;
@@ -87,14 +87,19 @@ nav h1 a {
 	display: inline;
 }
 #breadcrumb li:first-child:hover{
-	font-weight: bold;
+	text-decoration: underline;
 }
 
 #breadcrumb li:last-child{
 	font-weight: bold;
 }
 #breadcrumb li:last-child::before{
-	content: "/ ";
+display: inline-block;
+ margin: 0 .25em;
+ transform: rotate(15deg);
+ border-right: .1em solid currentColor;
+ height: .8em;
+ content: '';
 }
 
 /* ====================== Map ====================== */
@@ -229,9 +234,8 @@ h3{
 /* ====================== RESTAURANT.HTML ====================== */
 .inside #maincontent{
 	box-sizing: border-box;
-	padding: 10px 0;
 	display: block;
-	padding: 120px 0;
+	padding: 140px 0;
 }
 
 .inside #map-container {
