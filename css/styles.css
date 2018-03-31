@@ -37,6 +37,7 @@ a img{
 h1, h2, h3, h4, h5, h6 {
   font-family: "Open Sans",Arial, Helvetica, sans-serif;
   margin: 0 0 20px;
+	text-align: center;
 }
 
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -75,7 +76,7 @@ header {
 }
 
 nav h1 a {
-  font-size: 1.6rem;
+  font-size: 1.6em;
   font-weight: bold;
   letter-spacing: 10px;
   text-transform: uppercase;
@@ -121,7 +122,7 @@ nav h1 a {
 
 .filter-options h2 {
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: normal;
   line-height: 1rem;
 	padding: 50px 0;
@@ -150,6 +151,10 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Listing ====================== */
+h3{
+	font-size: 1.4em;
+	margin: 20px 0 10px;
+}
 #restaurants-list {
   background-color: white;
   list-style: outside none none;
@@ -182,7 +187,7 @@ nav h1 a {
 	max-height: 600px;
 }
 
-#restaurants-list li h1 {
+#restaurants-list li h2 {
   color: black;
   font-family: "Times New Roman", Arial,sans-serif;
   font-size: 1.5rem;
@@ -355,14 +360,14 @@ nav h1 a {
 /* ====================== 1200px =< ====================== */
 @media screen and (min-width: 1200px){
 	body{
-		width: 1200px;
-		margin: 0 auto;
+		font-size: 19px;
+		margin: 0 4%;
 	}
 
-	nav{
-		width: 1200px;
+	/* Header width = 100% - 2% (margin on both side) */
+	header{
+		width: 92%;
 	}
-
 	#content-wrapper{
 		margin: 0 auto;
 		width: 100%;
@@ -377,7 +382,7 @@ nav h1 a {
 	}
 
 	#restaurants-list li {
-		width:25%;
+		width:20%;
 		margin: 15px auto;
 	}
 }
