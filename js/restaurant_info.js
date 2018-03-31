@@ -14,6 +14,7 @@ window.initMap = () => {
         center: restaurant.latlng,
         scrollwheel: false
       });
+      fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
@@ -143,6 +144,17 @@ createReviewHTML = (review) => {
   return li;
 }
 
+/**
+ * Add restaurant name to the breadcrumb navigation menu
+ */
+fillBreadcrumb = (restaurant=self.restaurant) => {
+  const breadcrumb = document.getElementById('breadcrumb');
+  const li = document.createElement('li');
+  li.setAttribute("aria-current","page")
+  li.innerHTML = restaurant.name;
+  li.setAttribute("tabindex","0");
+  breadcrumb.appendChild(li);
+}
 
 
 /**
