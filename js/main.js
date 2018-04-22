@@ -21,6 +21,7 @@ fetchNeighborhoods = () => {
       console.error(error);
     } else {
       self.neighborhoods = neighborhoods;
+      console.log(neighborhoods);
       fillNeighborhoodsHTML();
     }
   });
