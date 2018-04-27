@@ -1,4 +1,4 @@
-var cacheName = 'v16';
+var cacheName = 'v17';
 var cacheFiles = [
   '/',
   '/service-worker.js',
@@ -31,7 +31,7 @@ var cacheFiles = [
   '/restaurant.html?id=8',
   '/restaurant.html?id=9',
   '/restaurant.html?id=10',
-
+  '/manifest.json'
 ]
 
 
