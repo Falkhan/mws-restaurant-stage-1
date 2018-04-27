@@ -1,6 +1,17 @@
 /**
  * Common database helper functions.
  */
+
+
+// Open the database
+ var dbPromise = idb.open('restaurant-data', 1, upgradeDB => {
+     switch (upgradeDB.oldVersion) {
+     case 0:
+         upgradeDB.createObjectStore('restaurant'); // Create objectStore for each ID
+     }
+ });
+
+
 class DBHelper {
 
   /**
@@ -16,17 +27,37 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    fetch(DBHelper.DATABASE_URL).then((response) =>{
-      return response.json()
-    })
-    .then((restaurants)=>{
-      callback(null, restaurants);
-    }).catch((err) =>{
-      callback(err,null);
+
+
+    // If database exists -> Fetch from idb
+     dbPromise.then(db =>{
+      return db.transaction('restaurant')
+        .objectStore('restaurant').getAll();
+      }).then(data => {
+      if(typeof data[0] != 'undefined'){
+        console.log(data[0], typeof data[0]);
+        callback(null,data[0]);
+      }
     });
 
+    fetch(DBHelper.DATABASE_URL).then((response) =>{
+        return response.json()
+      })
+      .then((restaurants)=>{
 
-  }
+        // Add items to the idb
+        dbPromise.then(db => {
+          const tx = db.transaction('restaurant','readwrite');
+          tx.objectStore('restaurant').put(restaurants,'data');
+          return tx.complete;
+      });
+        callback(null, restaurants);
+      }).catch((err) =>{
+        callback(err,null);
+      });
+
+    }
+
 
   /**
    * Fetch a restaurant by its ID.

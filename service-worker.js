@@ -1,8 +1,7 @@
-var cacheName = 'v15';
+var cacheName = 'v16';
 var cacheFiles = [
   '/',
   '/service-worker.js',
-  '/data/restaurants.json',
   '/index.html',
   '/restaurant.html',
   'https://fonts.googleapis.com/css?family=Open+Sans',
@@ -20,6 +19,7 @@ var cacheFiles = [
   '/app.js',
   '/js/dbhelper.js',
   '/js/main.js',
+  '/js/idb.js',
   '/js/restaurant_info.js',
   '/restaurant.html?id=1',
   '/restaurant.html?id=2',

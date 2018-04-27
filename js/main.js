@@ -21,7 +21,6 @@ fetchNeighborhoods = () => {
       console.error(error);
     } else {
       self.neighborhoods = neighborhoods;
-      console.log(neighborhoods);
       fillNeighborhoodsHTML();
     }
   });
@@ -141,8 +140,11 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   const alt = document.createAttribute("alt");
+
+
   alt.value = 'Picture of the restaurant called '+ restaurant.name;
   image.setAttributeNode(alt);
   li.append(image);
