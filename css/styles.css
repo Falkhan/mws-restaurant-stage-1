@@ -5,7 +5,7 @@
 body,td,th,p{
 	font-family: "Open Sans", Arial, Helvetica, sans-serif;
 	font-size: 17px;
-	color: #333;
+
 	line-height: 1.5;
 }
 
@@ -230,13 +230,11 @@ h3{
 
 
 
-
-
 /* ====================== RESTAURANT.HTML ====================== */
 .inside #maincontent{
 	box-sizing: border-box;
 	display: block;
-	padding: 140px 0;
+	padding-top: 140px;
 }
 
 .inside #map-container {
@@ -249,21 +247,6 @@ h3{
 .inside #map {
   background-color: #ccc;
 }
-
-
-/*#restaurant-name {
-  color: white;
-	background-color: orange;
-  font-family: Arial,sans-serif;
-  font-size: 1.6rem;
-  font-weight: bold;
-  letter-spacing: 0;
-  margin: 0;
-	padding: 10px 0;
-  text-transform: uppercase;
-  line-height: 1.1;
-	border-radius: 15px 15px 0 0;
-}*/
 
 #restaurant-container{
 	margin: 32px auto;
@@ -293,6 +276,9 @@ h3{
 }
 
 #restaurant-container, #reviews-container {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  padding: 0 5px;
 	width: 100%;
 	background-color: white;
 	box-sizing: border-box;
@@ -310,7 +296,7 @@ h3{
 	margin: 0;
 	font-size: 2.3rem;
 	font-family: "Times New Roman";
-	padding: 15px 0;
+	padding: 15px 5px;
 }
 
 #reviews-list {
@@ -330,11 +316,26 @@ h3{
 }
 
 
+
+
+
+/* ====================== Favourite ICONS ====================== */
+.fav-icon{
+  font-size: 2rem;
+  padding: 15px 0;
+  transition: color 0.2s;
+}
+.fav-icon:hover{
+  color: orange;
+}
+
+
+
+
+
 /* ====================== 600px =< ====================== */
 @media screen and (min-width: 600px){
-	#maincontent{
-		padding: 85px 0;
-	}
+
 	#content-wrapper{
 		margin: 0 auto;
 		width: 100%;

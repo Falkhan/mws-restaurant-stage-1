@@ -66,6 +66,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
+
   }
   // fill reviews
   fillReviewsHTML();
