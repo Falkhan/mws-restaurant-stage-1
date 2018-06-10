@@ -75,7 +75,7 @@ header {
 }
 
 header h1 a {
-  font-size: 1.6em;
+  font-size: 2rem;
   font-weight: bold;
   letter-spacing: 10px;
   text-transform: uppercase;
@@ -175,7 +175,7 @@ h3{
   border: 2px solid #ccc;
   font-family: Arial,sans-serif;
   min-height: 380px;
-  padding: 25px 30px 25px;
+  padding-bottom: 5px;
   text-align: center;
 	width:100%;
 	margin: 10px 0;
@@ -202,32 +202,35 @@ h3{
 }
 
 #restaurants-list p {
-  margin: 0;
+  margin: 12px 0;
   font-size: 1.2rem;
 }
 
 #restaurants-list li a {
-	background-color: white;
+  font-size: 1.5rem;
+	background-color: inherit;
 	color: black;
-  border: 3px solid black;
 	font-weight: bold;
   display: inline-block;
   font-size: 0.9rem;
-	margin: 15px 0 0;
-  padding: 8px 30px 10px;
+	padding: 8px 0;
+  width: 100%;
+
 	box-sizing: border-box;
   text-decoration: none;
   text-transform: uppercase;
-	border-radius: 15px;
   transition: background-color 0.3s;
   transition: color 0.3s;
 }
 
 #restaurants-list li a:hover, #restaurants-list li a:focus{
-	  background-color: black;
+	  background-color: #ccc;
 		color: white;
 }
 
+#restaurants-list span{
+  padding-top: 10px;
+}
 
 
 /* ====================== RESTAURANT.HTML ====================== */
@@ -296,7 +299,7 @@ h3{
 	margin: 0;
 	font-size: 2.3rem;
 	font-family: "Times New Roman";
-	padding: 15px 5px;
+	padding: 5px;
 }
 
 #reviews-list {
@@ -344,7 +347,7 @@ h3{
 
 	}
 	#restaurants-list li {
-		width:33%;
+		width:40%;
 		margin: 15px auto;
 	}
 
@@ -384,10 +387,10 @@ h3{
 	#restaurant-container, #reviews-container{
 		box-sizing: border-box;
 		margin: 15px auto;
-		width: 45%;
+		width: 50%;
 	}
 	#restaurants-list li {
-		width:28%;
+		width:35%;
 		margin: 15px auto;
 	}
 }

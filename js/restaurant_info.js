@@ -63,6 +63,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
+  const star = document.getElementById('star');
+
+  // check if the restaurant was set to favourite
+  if (restaurant.is_favorite){
+    star.setAttribute("class","fas fa-star fav-icon");
+  }
+  else {
+    star.setAttribute("class","far fa-star fav-icon");
+  }
+
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
@@ -176,4 +186,18 @@ getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+starFavorize = (restaurant=self.restaurant) =>{
+  const star = document.getElementById('star');
+  const new_state = !restaurant.is_favorite
+  if (new_state){
+    star.setAttribute("class","fas fa-star fav-icon");
+  }
+  else {
+    star.setAttribute("class","far fa-star fav-icon");
+  }
+  return fetch(`http://localhost:1337/restaurants/${restaurant.id}/?is_favorite=${new_state}`,{method: 'PUT'})
+    .then(response => console.log(response))
 }

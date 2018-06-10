@@ -161,13 +161,31 @@ createRestaurantHTML = (restaurant) => {
   address.innerHTML = restaurant.address;
   li.append(address);
 
+  const minimenu = document.createElement('span');
+  li.append(minimenu)
+
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   const label = document.createAttribute('aria-label');
   label.value = restaurant.name + ". View details";
   more.setAttributeNode(label);
-  li.append(more)
+  minimenu.append(more)
+
+
+  /* Add 'set favourite' link to the box */
+  const fav = document.createElement('a');
+  const favlabel = document.createAttribute('aria-label');
+  if (restaurant.is_favorite){
+    fav.innerHTML = '<i class="fas fa-star"></i>';
+    favlabel.value = restaurant.name + "Unfavourite";
+  }
+  else{
+    fav.innerHTML = '<i class="far fa-star"></i>';
+    favlabel.value = "Set as favourite";
+  }
+  fav.setAttributeNode(favlabel);
+  minimenu.append(fav)
 
   return li
 }
