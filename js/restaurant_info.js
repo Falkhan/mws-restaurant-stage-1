@@ -121,6 +121,9 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
+
+  const review_box = document.getEle
+
   container.appendChild(ul);
 }
 

@@ -3,6 +3,11 @@
  */
 
 
+
+const fetched_data = fetch("http://localhost:1337/restaurants").then((response) =>{
+    return response.json()
+  })
+
 // Open the database
  var dbPromise = idb.open('restaurant-data', 1, upgradeDB => {
      switch (upgradeDB.oldVersion) {
@@ -34,9 +39,9 @@ class DBHelper {
       return db.transaction('restaurant')
         .objectStore('restaurant').getAll();
       }).then(data => {
-      if(typeof data[0] != 'undefined'){
-        console.log(data[0], typeof data[0]);
-        callback(null,data[0]);
+      if(data.length > 0){
+        console.log(data, typeof data);
+        callback(null,data);
       }
     });
 
@@ -44,12 +49,14 @@ class DBHelper {
         return response.json()
       })
       .then((restaurants)=>{
-
         // Add items to the idb
         dbPromise.then(db => {
           const tx = db.transaction('restaurant','readwrite');
-          tx.objectStore('restaurant').put(restaurants,'data');
-          return tx.complete;
+          for (var i = 0; i< restaurants.length; i++){
+            var obj = restaurants[i];
+            tx.objectStore('restaurant').put(obj,obj.id);
+          }
+        return tx.complete;
       });
         callback(null, restaurants);
       }).catch((err) =>{
@@ -58,6 +65,20 @@ class DBHelper {
 
     }
 
+/**
+ * Set a restaurant to favourite or not
+
+  static setFavouriteRestaurant(id){
+   const restaurant_index = id - 1;
+
+   // Create a new transaction
+   dbPromise.then(db => {
+     const tx = db.transaction('restaurant', 'readwrite');
+     tx.objectStore('restaurant').put()
+   })
+
+  }
+*/
 
   /**
    * Fetch a restaurant by its ID.
