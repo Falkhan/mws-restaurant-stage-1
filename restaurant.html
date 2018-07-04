@@ -48,12 +48,14 @@
       <!-- end restaurant -->
       <!-- Beginning reviews -->
       <section id="reviews-container">
-        <ul id="reviews-list" aria-label="Reviews" tabindex="0"></ul>
+        <h3>Reviews</h3>
         <form>
-          <textarea name="review-text" rows="5" cols="30">
+          <textarea aria-label="Type the text of your review" name="review-text" rows="5" cols="30">
           </textarea>
-          <input type="text" name="review-name">
+          <input type="text" name="review-name" aria-label="Type your name">
+          <button id="review-button">Submit</button>
         </form>
+        <ul id="reviews-list" aria-label="Reviews" tabindex="0"></ul>
       </section>
     </div>
     <!-- End reviews -->
