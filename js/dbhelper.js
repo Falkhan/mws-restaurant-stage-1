@@ -40,12 +40,14 @@ class DBHelper {
           return response.json()
         })
         .then((restaurants)=>{
-          const tx = db.transaction('restaurant','readwrite');
-          for (var i = 0; i < restaurants.length; i++){
-            var obj = restaurants[i];
-            tx.objectStore('restaurant').put(obj,obj.id);
-          }
-          return tx.complete;
+          dbPromise.then(db=>{
+            const tx = db.transaction('restaurant','readwrite');
+            for (var i = 0; i < restaurants.length; i++){
+              var obj = restaurants[i];
+              tx.objectStore('restaurant').put(obj,obj.id);
+            }
+            return tx.complete;
+          });
           callback(null,restaurants);
         }).catch((err)=>{
           callback(err,null);
