@@ -43,7 +43,7 @@ class DBHelper {
         }
         return tx.complete;
       });
-      callback(null, restaurants);
+      callback(null, data);
     }).catch((err)=>{
       dbPromise.then(db=>{
         return db.transaction('restaurant')
