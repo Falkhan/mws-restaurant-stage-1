@@ -6,7 +6,8 @@
  var dbPromise = idb.open('restaurant-data', 1, upgradeDB => {
      switch (upgradeDB.oldVersion) {
      case 0:
-         upgradeDB.createObjectStore('restaurant'); // Create objectStore for each ID
+         upgradeDB.createObjectStore('restaurant');
+         upgradeDB.createObjectStore('reviews');
      }
  });
 
@@ -26,7 +27,39 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    // If database exists -> Fetch from idb
+    // Fetch from the internet if there's connectivity
+    // And update the IDB stroe
+    // If not, try fetching from IDB
+
+    fetch(DBHelper.DATABASE_URL).then((response)=>{
+      return response.json();
+    })
+    .then((data)=>{
+      dbPromise.then(db=>{
+        const tx = db.transaction('restaurant','readwrite');
+        for (var i = 0; i<data.length; i++){
+          var obj = data[i];
+          tx.objectStore('restaurant').put(obj,obj.id);
+        }
+        return tx.complete;
+      });
+      callback(null, restaurants);
+    }).catch((err)=>{
+      dbPromise.then(db=>{
+        return db.transaction('restaurant')
+          .objectStore('restaurant').getAll();
+      }).then(data =>{
+        if(data.length > 0){
+          callback(null,data);
+        }
+        else{
+          callback(err,null);
+        }
+      });
+    });
+
+/*
+
      dbPromise.then(db =>{
       return db.transaction('restaurant')
         .objectStore('restaurant').getAll();
@@ -53,8 +86,20 @@ class DBHelper {
           callback(err,null);
         });
       }
-    });
+    });*/
+
     }
+
+
+/**
+ * Fetch restaurant reviews by restaurant ID
+ */
+  static fetchRestaurantReviewById(id,callback){
+    dbPromise.then(db => {
+      return db.transaction('reviews')
+        .objectStore('')
+    })
+}
 
 /**
  * Set a restaurant to favourite or not

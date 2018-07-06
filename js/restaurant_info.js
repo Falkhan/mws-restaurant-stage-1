@@ -108,6 +108,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  * Create all reviews HTML and add them to the webpage.
  */
 fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+  console.log(reviews);
   const container = document.getElementById('reviews-container');
 //  const title = document.createElement('h3');
 //  title.innerHTML = 'Reviews';
@@ -206,4 +207,10 @@ starFavorize = (restaurant=self.restaurant) =>{
   }
   return fetch(`http://localhost:1337/restaurants/${restaurant.id}/?is_favorite=${new_state}`,{method: 'PUT'})
     .then(response => console.log(response));
+}
+
+postReview = (restaurant = self.restaurant) => {
+  const textarea = document.getElementById("review-text");
+  const name = document.getElementById("review-name");
+
 }
