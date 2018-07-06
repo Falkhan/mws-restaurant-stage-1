@@ -2,12 +2,6 @@
  * Common database helper functions.
  */
 
-
-
-const fetched_data = fetch("http://localhost:1337/restaurants").then((response) =>{
-    return response.json()
-  })
-
 // Open the database
  var dbPromise = idb.open('restaurant-data', 1, upgradeDB => {
      switch (upgradeDB.oldVersion) {
@@ -32,8 +26,6 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-
-
     // If database exists -> Fetch from idb
      dbPromise.then(db =>{
       return db.transaction('restaurant')
@@ -43,26 +35,23 @@ class DBHelper {
         console.log(data, typeof data);
         callback(null,data);
       }
-    });
-
-    fetch(DBHelper.DATABASE_URL).then((response) =>{
-        return response.json()
-      })
-      .then((restaurants)=>{
-        // Add items to the idb
-        dbPromise.then(db => {
+      else{
+        fetch(DBHelper.DATABASE_URL).then((response)=>{
+          return response.json()
+        })
+        .then((restaurants)=>{
           const tx = db.transaction('restaurant','readwrite');
-          for (var i = 0; i< restaurants.length; i++){
+          for (var i = 0; i < restaurants.length; i++){
             var obj = restaurants[i];
             tx.objectStore('restaurant').put(obj,obj.id);
           }
-        return tx.complete;
-      });
-        callback(null, restaurants);
-      }).catch((err) =>{
-        callback(err,null);
-      });
-
+          return tx.complete;
+          callback(null,restaurants);
+        }).catch((err)=>{
+          callback(err,null);
+        });
+      }
+    });
     }
 
 /**

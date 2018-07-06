@@ -410,7 +410,7 @@ input:hover{
 @media screen and (min-width: 1200px){
 	#maincontent{
 		font-size: 19px;
-		margin: 0 4%;
+		margin: 0 10%;
 		border-left: 2px solid black;
 		border-right: 2px solid black;
 	}
