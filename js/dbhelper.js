@@ -6,8 +6,8 @@
  var dbPromise = idb.open('restaurant-data', 1, upgradeDB => {
      switch (upgradeDB.oldVersion) {
      case 0:
-         upgradeDB.createObjectStore('restaurant');
-         upgradeDB.createObjectStore('reviews');
+        upgradeDB.createObjectStore('restaurant');
+        upgradeDB.createObjectStore('reviews');
      }
  });
 
@@ -28,7 +28,7 @@ class DBHelper {
    */
   static fetchRestaurants(callback) {
     // Fetch from the internet if there's connectivity
-    // And update the IDB stroe
+    // And update the IDB store
     // If not, try fetching from IDB
 
     fetch(DBHelper.DATABASE_URL).then((response)=>{
@@ -60,19 +60,44 @@ class DBHelper {
 
 
     }
-
+/*
+ The app needs to fetch all review data and then return filtered data
+*/
 
 /**
  * Fetch restaurant reviews by restaurant ID
- */
-  static fetchRestaurantReviewById(id){
-    return fetch(`http://localhost:1337/reviews/?restaurant_id=${id}`).then((response)=>{
-      return response.json();
-    }).
-    then((data)=>{
-      return data
-    });
-}
+*/
+
+ static fetchRestaurantReviewById(id){
+   return fetch("http://localhost:1337/reviews/").then((response)=>{
+     return response.json();
+   }).
+   then((data)=>{
+     // If there is connection, add reviews to the IDB and return the response from fetch
+     if(data){
+       dbPromise.then(db=>{
+         const tx = db.transaction('reviews','readwrite');
+         data.forEach((review)=>{
+           tx.objectStore('reviews').put(review,review.id)
+         })
+         return tx.complete;
+       });
+       return data.filter(r => r.restaurant_id == id);
+     }
+   })
+    // If there is no connection, grab reviews from the IDB
+   .catch((err)=>{
+       console.error(err);
+       dbPromise.then(db=>{
+         return reviews = db.transaction('reviews')
+           .objectStore('reviews').getAll();
+         }).then(data =>{
+           return data.filter(r => r.restaurant_id == id);
+         });
+ });
+ }
+
+
 
 /**
  * Set a restaurant to favourite or not

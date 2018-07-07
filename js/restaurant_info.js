@@ -119,6 +119,7 @@ fillReviewsHTML = () => {
     }
     else {
       const ul = document.getElementById('reviews-list');
+      console.log(reviews);
       data.forEach(review => {
         ul.appendChild(createReviewHTML(review));
       });
