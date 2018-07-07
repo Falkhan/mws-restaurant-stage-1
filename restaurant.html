@@ -50,9 +50,16 @@
       <section id="reviews-container">
         <h3>Reviews</h3>
         <form>
-          <textarea aria-label="Type the text of your review" id="review-text" rows="5" cols="30">
-          </textarea>
-          <input type="text" id="review-name" aria-label="Type your name">
+          <textarea aria-label="Type the text of your review" id="review-text" rows="5" cols="30">Write your review</textarea>
+          <input type="text" id="review-name" aria-label="Type your name" value="Your name">
+          <select id="review-rating" aria-label="Rate the restaurant">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
           <button id="review-button">Submit</button>
         </form>
         <ul id="reviews-list" aria-label="Reviews" tabindex="0"></ul>

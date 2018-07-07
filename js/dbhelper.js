@@ -58,35 +58,6 @@ class DBHelper {
       });
     });
 
-/*
-
-     dbPromise.then(db =>{
-      return db.transaction('restaurant')
-        .objectStore('restaurant').getAll();
-      }).then(data => {
-      if(data.length > 0){
-        console.log(data, typeof data);
-        callback(null,data);
-      }
-      else{
-        fetch(DBHelper.DATABASE_URL).then((response)=>{
-          return response.json()
-        })
-        .then((restaurants)=>{
-          dbPromise.then(db=>{
-            const tx = db.transaction('restaurant','readwrite');
-            for (var i = 0; i < restaurants.length; i++){
-              var obj = restaurants[i];
-              tx.objectStore('restaurant').put(obj,obj.id);
-            }
-            return tx.complete;
-          });
-          callback(null,restaurants);
-        }).catch((err)=>{
-          callback(err,null);
-        });
-      }
-    });*/
 
     }
 
@@ -94,11 +65,13 @@ class DBHelper {
 /**
  * Fetch restaurant reviews by restaurant ID
  */
-  static fetchRestaurantReviewById(id,callback){
-    dbPromise.then(db => {
-      return db.transaction('reviews')
-        .objectStore('')
-    })
+  static fetchRestaurantReviewById(id){
+    return fetch(`http://localhost:1337/reviews/?restaurant_id=${id}`).then((response)=>{
+      return response.json();
+    }).
+    then((data)=>{
+      return data
+    });
 }
 
 /**

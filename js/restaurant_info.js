@@ -107,13 +107,29 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
-  console.log(reviews);
+fillReviewsHTML = () => {
+  var reviews = DBHelper.fetchRestaurantReviewById(self.restaurant.id);
   const container = document.getElementById('reviews-container');
+  reviews.then((data)=>{
+    if (!reviews){
+      const noReviews = document.createElement('p');
+      noReviews.innerHTML = 'No reviews yet!';
+      container.appendChild(noReviews);
+      return;
+    }
+    else {
+      const ul = document.getElementById('reviews-list');
+      data.forEach(review => {
+        ul.appendChild(createReviewHTML(review));
+      });
+      container.appendChild(ul);
+    }
+  })
+
 //  const title = document.createElement('h3');
 //  title.innerHTML = 'Reviews';
 //  container.appendChild(title);
-
+/*
   if (!reviews) {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
@@ -121,18 +137,23 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     return;
   }
   const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
+  for (var i = 0; i<reviews.length; i++){
+    review = reviews[i]
     ul.appendChild(createReviewHTML(review));
-  });
+  }
+//  reviews.forEach(review => {
+//    ul.appendChild(createReviewHTML(review));
+//  });
+*/
 
 
-  container.appendChild(ul);
 }
 
 /**
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
+  console.log(review)
   const li = document.createElement('li');
   const name = document.createElement('p');
   name.innerHTML = review.name;
@@ -143,7 +164,8 @@ createReviewHTML = (review) => {
   li.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  const created_at = new Date(review.createdAt)
+  date.innerHTML = `${created_at.getDate()}.${created_at.getMonth()+1}.${created_at.getFullYear()}`;
   date.setAttribute("tabindex","0");
   li.appendChild(date);
 
