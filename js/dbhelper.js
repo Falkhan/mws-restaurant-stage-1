@@ -7,7 +7,8 @@
      switch (upgradeDB.oldVersion) {
      case 0:
         upgradeDB.createObjectStore('restaurant');
-        upgradeDB.createObjectStore('reviews');
+        upgradeDB.createObjectStore('reviews', {autoIncrement:true});
+        upgradeDB.createObjectStore('deferred-posts',{autoIncrement:true});
      }
  });
 
@@ -46,7 +47,7 @@ class DBHelper {
       callback(null, data);
     }).catch((err)=>{
       dbPromise.then(db=>{
-        return db.transaction('restaurant')
+        return db.transaction('restaurant','readwrite')
           .objectStore('restaurant').getAll();
       }).then(data =>{
         if(data.length > 0){
@@ -78,7 +79,7 @@ class DBHelper {
        dbPromise.then(db=>{
          const tx = db.transaction('reviews','readwrite');
          data.forEach((review)=>{
-           tx.objectStore('reviews').put(review,review.id)
+           tx.objectStore('reviews').put(review)
          })
          return tx.complete;
        });
@@ -87,10 +88,9 @@ class DBHelper {
    })
     // If there is no connection, grab reviews from the IDB
    .catch((err)=>{
-       console.error(err);
-       dbPromise.then(db=>{
-         return reviews = db.transaction('reviews')
-           .objectStore('reviews').getAll();
+      return dbPromise.then(db=>{
+         return db.transaction('reviews','readwrite')
+                  .objectStore('reviews').getAll();
          }).then(data =>{
            return data.filter(r => r.restaurant_id == id);
          });
@@ -250,4 +250,31 @@ class DBHelper {
     return marker;
   }
 
+}
+
+
+reviewHandler = () => {
+  const restaurant_id = parseInt(getParameterByName("id"));
+  const review_text = document.getElementById("review-text").value;
+  const name = document.getElementById("review-name").value;
+  const rating = parseInt(document.getElementById("review-rating").value);
+
+  const new_review = {
+    "restaurant_id": restaurant_id,
+    "name": name,
+    "rating": rating,
+    "comments": review_text
+  }
+  console.log("New review added");
+  console.log(new_review);
+//  postNewReview(new_review).then((result) => {
+//    console.log(result);
+//  })
+  //location.reload();
+  dbPromise.then(db=>{
+    const tx = db.transaction('deferred-posts','readwrite');
+    tx.objectStore('deferred-posts').put(new_review);
+    return tx.complete;
+  });
+  return;
 }

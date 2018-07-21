@@ -119,7 +119,7 @@ fillReviewsHTML = () => {
     }
     else {
       const ul = document.getElementById('reviews-list');
-      console.log(reviews);
+      ul.innerHTML = "";
       data.forEach(review => {
         ul.appendChild(createReviewHTML(review));
       });
@@ -127,34 +127,12 @@ fillReviewsHTML = () => {
     }
   })
 
-//  const title = document.createElement('h3');
-//  title.innerHTML = 'Reviews';
-//  container.appendChild(title);
-/*
-  if (!reviews) {
-    const noReviews = document.createElement('p');
-    noReviews.innerHTML = 'No reviews yet!';
-    container.appendChild(noReviews);
-    return;
-  }
-  const ul = document.getElementById('reviews-list');
-  for (var i = 0; i<reviews.length; i++){
-    review = reviews[i]
-    ul.appendChild(createReviewHTML(review));
-  }
-//  reviews.forEach(review => {
-//    ul.appendChild(createReviewHTML(review));
-//  });
-*/
-
-
 }
 
 /**
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
-  console.log(review)
   const li = document.createElement('li');
   const name = document.createElement('p');
   name.innerHTML = review.name;
@@ -232,8 +210,19 @@ starFavorize = (restaurant=self.restaurant) =>{
     .then(response => console.log(response));
 }
 
-postReview = (restaurant = self.restaurant) => {
-  const textarea = document.getElementById("review-text");
-  const name = document.getElementById("review-name");
 
+function postNewReview(data){
+  return fetch("http://localhost:1337/reviews",
+    {
+      method: 'POST',
+      headers:{
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+  .then((response)=>{
+    return response.json();
+  }).then((json) =>{
+    return json;
+  })
 }
