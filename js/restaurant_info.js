@@ -209,20 +209,3 @@ starFavorize = (restaurant=self.restaurant) =>{
   return fetch(`http://localhost:1337/restaurants/${restaurant.id}/?is_favorite=${new_state}`,{method: 'PUT'})
     .then(response => console.log(response));
 }
-
-
-function postNewReview(data){
-  return fetch("http://localhost:1337/reviews",
-    {
-      method: 'POST',
-      headers:{
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-  .then((response)=>{
-    return response.json();
-  }).then((json) =>{
-    return json;
-  })
-}

@@ -7,8 +7,8 @@
      switch (upgradeDB.oldVersion) {
      case 0:
         upgradeDB.createObjectStore('restaurant');
-        upgradeDB.createObjectStore('reviews', {autoIncrement:true});
-        upgradeDB.createObjectStore('deferred-posts',{autoIncrement:true});
+        upgradeDB.createObjectStore('reviews');
+        upgradeDB.createObjectStore('deferred-posts');
      }
  });
 
@@ -79,7 +79,7 @@ class DBHelper {
        dbPromise.then(db=>{
          const tx = db.transaction('reviews','readwrite');
          data.forEach((review)=>{
-           tx.objectStore('reviews').put(review)
+           tx.objectStore('reviews').put(review,review.id)
          })
          return tx.complete;
        });
@@ -98,6 +98,30 @@ class DBHelper {
  }
 
 
+ static reviewHandler() {
+   const restaurant_id = parseInt(getParameterByName("id"));
+   const review_text = document.getElementById("review-text").value;
+   const name = document.getElementById("review-name").value;
+   const rating = parseInt(document.getElementById("review-rating").value);
+
+   const new_review = {
+     "restaurant_id": restaurant_id,
+     "name": name,
+     "rating": rating,
+     "comments": review_text
+   }
+   console.log("New review added");
+   console.log(new_review);
+ //  postNewReview(new_review).then((result) => {
+ //    console.log(result);
+ //  })
+   //location.reload();
+   return dbPromise.then(db=>{
+     const tx = db.transaction('deferred-posts','readwrite');
+     tx.objectStore('deferred-posts').put(new_review,1);
+     return tx.complete;
+   });
+ }
 
 /**
  * Set a restaurant to favourite or not
@@ -250,31 +274,4 @@ class DBHelper {
     return marker;
   }
 
-}
-
-
-reviewHandler = () => {
-  const restaurant_id = parseInt(getParameterByName("id"));
-  const review_text = document.getElementById("review-text").value;
-  const name = document.getElementById("review-name").value;
-  const rating = parseInt(document.getElementById("review-rating").value);
-
-  const new_review = {
-    "restaurant_id": restaurant_id,
-    "name": name,
-    "rating": rating,
-    "comments": review_text
-  }
-  console.log("New review added");
-  console.log(new_review);
-//  postNewReview(new_review).then((result) => {
-//    console.log(result);
-//  })
-  //location.reload();
-  dbPromise.then(db=>{
-    const tx = db.transaction('deferred-posts','readwrite');
-    tx.objectStore('deferred-posts').put(new_review);
-    return tx.complete;
-  });
-  return;
 }

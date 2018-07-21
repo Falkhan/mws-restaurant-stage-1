@@ -83,29 +83,23 @@ self.addEventListener('fetch', function(e) {
       })
     );
   }
-  else if (req.clone().method == "POST"){
-    console.log(req.clone());
-    console.log(req.body);
-  }
 });
 
 // Listen for sync events
 self.addEventListener('sync',function(e){
-  console.log('[Sync] Heard');
-  if (e.tag == "offlinePostRequest"){
-      console.log('[Sync] Works');
-      e.waitUntil(postNewReviews());
+  if (e.tag === "offlinePostRequest"){
+      e.waitUntil(postNewReviews()
+      .then(()=>{
+        self.registration.showNotification("New review posted!");
+      })
+      .catch(()=>{
+        console.error("Couldn't sync with the server!");
+      }));
   }
 });
 
 function postNewReviews(){
-  debugger;
   return getReviewOutbox().then(data=>{
-    console.log(data);
-    if (!data){
-      console.err("[Sync] Empty review detected!");
-    }
-    else {
       const fetch_settings = {
         method: 'POST',
         headers:{
@@ -113,20 +107,7 @@ function postNewReviews(){
         },
         body: JSON.stringify(data)
       };
-
-      return fetch('http://localhost:1337/reviews/', fetch_settings)
-        .then(resp=>{
-          resp.json();
-        })
-        .then(resp=>{
-          console.log(resp);
-          self.registration.showNotification("New review posted!");
-          location.reload;
-        })
-        .catch(err=>{
-          console.error(err);
-        })
-    }
+      return fetch('http://localhost:1337/reviews/', fetch_settings);
   });
 
 }
@@ -144,22 +125,12 @@ function getReviewOutbox(){
     return data[0];
   })
 
-
   deferred_review.then(data=>{
-    dbPromise.then(db =>{
+    return dbPromise.then(db =>{
       const tx = db.transaction('reviews', 'readwrite');
-      tx.objectStore('reviews').put(data[0]);
+      tx.objectStore('reviews').put(data,-1);
       return tx.complete;
     });
-  })
-  // Add them to the existing review db
-
-
-  // Clear the deferred posts storage
-  dbPromise.then(db=>{
-    const tx = db.transaction('deferred-posts','readwrite');
-    tx.objectStore('deferred-posts').clear();
-    return tx.complete;
   })
   return deferred_review;
 }

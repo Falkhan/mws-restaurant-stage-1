@@ -6,14 +6,11 @@ if ('serviceWorker' in navigator && 'SyncManager' in window){
       Notification.requestPermission();
       if (location.pathname == ("/restaurant.html")){
         document.getElementById("review-button").addEventListener("click",()=>{
-            reviewHandler();
-            registration.sync.register('offlinePostRequest').then(
-              ()=>{
-                console.log("[Sync] Success")
-                location.reload;
-              },
-              ()=>{console.error("[Sync] Sync unsuccessful")}
-            );
+            DBHelper.reviewHandler().then(()=>{
+              registration.sync.register('offlinePostRequest');
+            }).catch(err=>{
+              console.error(err);
+            });
         })
       }
     })
