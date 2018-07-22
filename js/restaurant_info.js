@@ -195,6 +195,8 @@ getParameterByName = (name, url) => {
 }
 
 
+
+
 starFavorize = (restaurant=self.restaurant) =>{
   const star = document.getElementById('star');
   let new_state;
@@ -206,6 +208,9 @@ starFavorize = (restaurant=self.restaurant) =>{
     star.setAttribute("class","far fa-star fav-icon");
     new_state = "false";
   }
-  return fetch(`http://localhost:1337/restaurants/${restaurant.id}/?is_favorite=${new_state}`,{method: 'PUT'})
-    .then(response => console.log(response));
+  fetch(`http://localhost:1337/restaurants/${restaurant.id}/?is_favorite=${new_state}`,{method: 'PUT'})
+    .then(response => {
+      console.log(response);
+      location.reload();
+    });
 }

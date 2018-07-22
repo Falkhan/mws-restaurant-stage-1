@@ -4,8 +4,7 @@
 
 body,td,th,p{
 	font-family: "Open Sans", Arial, Helvetica, sans-serif;
-	font-size: 17px;
-
+	font-size: 13px;
 	line-height: 1.5;
 }
 
@@ -46,7 +45,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #maincontent {
   min-height: 100%;
 	box-sizing: border-box;
-	padding: 120px 0 0 0;
+	padding: 60px 15px;
 	background-color: white;
 }
 
@@ -67,7 +66,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 /* ====================== Navigation ====================== */
 header {
   width: 100%;
-  text-align:center;
+  text-align: center;
 	position: fixed;
 	z-index: 1;
 	box-shadow: 0 2px 5px black;
@@ -75,9 +74,9 @@ header {
 }
 
 header h1 a {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  letter-spacing: 10px;
+  letter-spacing: 8px;
   text-transform: uppercase;
   font-family: "Times New Roman";
 }
@@ -156,7 +155,7 @@ display: inline-block;
 
 /* ====================== Restaurant Listing ====================== */
 h3{
-	font-size: 1.4em;
+	font-size: 1rem;
 	margin: 20px 0 10px;
 }
 #restaurants-list {
@@ -193,7 +192,7 @@ h3{
 #restaurants-list li h2 {
   color: black;
   font-family: "Times New Roman", Arial,sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
   letter-spacing: 2px;
   margin: 20px 0 10px;
@@ -391,7 +390,7 @@ input:hover, #review-rating:hover,textarea:hover{
 }
 .post-review-off{
   animation-name: reviewAnimation;
-  animation-duration: 1.6s;
+  animation-duration: 0.4s;
   animation-fill-mode: forwards;
   -webkit-transition: visibility 1.6s;
   -o-transition: visibility 1.6s;
@@ -401,7 +400,7 @@ input:hover, #review-rating:hover,textarea:hover{
 
 /* Adding text after review is submitted */
 #review-posted{
-  transition: opacity 5s;
+  transition: opacity 0.5s;
 }
 .thanks-turned-off{
   opacity:0;
@@ -433,6 +432,9 @@ input:hover, #review-rating:hover,textarea:hover{
 
 /* ====================== 600px =< ====================== */
 @media screen and (min-width: 600px){
+  body{
+    font-size: 18px;
+  }
 
 	#content-wrapper{
 		margin: 0 auto;
@@ -464,6 +466,10 @@ input:hover, #review-rating:hover,textarea:hover{
 
 /* ====================== 1200px =< ====================== */
 @media screen and (min-width: 1200px){
+  body{
+    font-size: 22px;
+  }
+
 	#maincontent{
 		font-size: 19px;
 		margin: 0 10%;
