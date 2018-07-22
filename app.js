@@ -11,7 +11,7 @@ if ('serviceWorker' in navigator && 'SyncManager' in window){
             }).catch(err=>{
               console.error(err);
             });
-        })
+        });
       }
     })
     .catch(function(err){

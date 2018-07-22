@@ -49,7 +49,7 @@
       <!-- Beginning reviews -->
       <section id="reviews-container">
         <h3>Reviews</h3>
-      <!--  <form id="review-form"> -->
+      <div id="post-review">
           <textarea aria-label="Type the text of your review" id="review-text" rows="5" cols="30">Write your review</textarea>
           <input type="text" id="review-name" aria-label="Type your name" value="Your name">
           <select id="review-rating" aria-label="Rate the restaurant">
@@ -59,10 +59,10 @@
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-
-        <!--  <button onclick="reviewHandler()" id="review-button">Submit</button> -->
           <button onclick="" id="review-button">Submit</button>
-      <!--  </form> -->
+        </div>
+        <h4 id="review-posted" class="thanks-turned-off">Thanks for submitting the review!</h4>
+
         <ul id="reviews-list" aria-label="Reviews" tabindex="0"></ul>
       </section>
     </div>

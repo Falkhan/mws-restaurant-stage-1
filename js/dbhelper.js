@@ -110,12 +110,9 @@ class DBHelper {
      "rating": rating,
      "comments": review_text
    }
-   console.log("New review added");
-   console.log(new_review);
- //  postNewReview(new_review).then((result) => {
- //    console.log(result);
- //  })
-   //location.reload();
+   // Turn off the form submit form.
+   document.getElementById("post-review").className = "post-review-off";
+   document.getElementById("review-posted").className = "thanks-turned-on";
    return dbPromise.then(db=>{
      const tx = db.transaction('deferred-posts','readwrite');
      tx.objectStore('deferred-posts').put(new_review,1);
