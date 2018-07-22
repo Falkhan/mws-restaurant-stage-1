@@ -88,7 +88,8 @@ self.addEventListener('fetch', function(e) {
 // Listen for sync events
 self.addEventListener('sync',function(e){
   if (e.tag === "offlinePostRequest"){
-      e.waitUntil(postNewReviews()
+
+      e.waitUntil(postNewReview()
       .then(()=>{
         self.registration.showNotification("New review posted!");
       })
@@ -98,8 +99,8 @@ self.addEventListener('sync',function(e){
   }
 });
 
-function postNewReviews(){
-  return getReviewOutbox().then(data=>{
+function postNewReview(){
+  return getNewReview().then(data=>{
       const fetch_settings = {
         method: 'POST',
         headers:{
@@ -110,6 +111,15 @@ function postNewReviews(){
       return fetch('http://localhost:1337/reviews/', fetch_settings);
   });
 
+}
+
+function getNewReview(){
+  return idb.open('restaurant-data',1).then(db=>{
+    return db.transaction('reviews')
+             .objectStore('reviews').get(-1);
+  }).then(data=>{
+    return data;
+  });
 }
 
 function getReviewOutbox(){

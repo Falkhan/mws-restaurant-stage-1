@@ -110,12 +110,17 @@ class DBHelper {
      "rating": rating,
      "comments": review_text
    }
+
    // Turn off the form submit form.
+
+   var review_for_adding = new_review;
+   review_for_adding.createdAt = new Date();
    document.getElementById("post-review").className = "post-review-off";
    document.getElementById("review-posted").className = "thanks-turned-on";
+   document.getElementById("reviews-list").prepend(createReviewHTML(new_review));
    return dbPromise.then(db=>{
-     const tx = db.transaction('deferred-posts','readwrite');
-     tx.objectStore('deferred-posts').put(new_review,1);
+     const tx = db.transaction('reviews','readwrite');
+     tx.objectStore('reviews').put(new_review,-1);
      return tx.complete;
    });
  }

@@ -111,13 +111,21 @@ fillReviewsHTML = () => {
   var reviews = DBHelper.fetchRestaurantReviewById(self.restaurant.id);
   const container = document.getElementById('reviews-container');
   reviews.then((data)=>{
-    if (!reviews){
+    if (!data){
       const noReviews = document.createElement('p');
       noReviews.innerHTML = 'No reviews yet!';
       container.appendChild(noReviews);
       return;
     }
     else {
+
+      // Sort reviews from the most recent one to the oldest
+      data.sort((a,b)=>{
+        a = new Date(a.createdAt);
+        b = new Date(b.createdAt);
+        return a>b ? -1 : a<b ? 1 : 0;
+      });
+
       const ul = document.getElementById('reviews-list');
       ul.innerHTML = "";
       data.forEach(review => {
