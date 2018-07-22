@@ -375,6 +375,7 @@ input:hover, #review-rating:hover,textarea:hover{
     height: 0px;
     opacity: 0;
     display: none;
+    visibility: hidden;
   }
 }
 
@@ -386,11 +387,16 @@ input:hover, #review-rating:hover,textarea:hover{
 .post-review-on{
   display: block;
   height: 160px;
+  visibility: visible;
 }
 .post-review-off{
   animation-name: reviewAnimation;
   animation-duration: 1.6s;
   animation-fill-mode: forwards;
+  -webkit-transition: visibility 1.6s;
+  -o-transition: visibility 1.6s;
+  transition: visibility 1.6s;
+  visibility: hidden;
 }
 
 /* Adding text after review is submitted */
@@ -400,10 +406,12 @@ input:hover, #review-rating:hover,textarea:hover{
 .thanks-turned-off{
   opacity:0;
   display: none;
+  visibility: hidden;
 }
 .thanks-turned-on{
   display: block;
   opacity: 1;
+  visibility: visible;
 }
 
 
