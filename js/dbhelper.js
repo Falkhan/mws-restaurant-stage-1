@@ -8,7 +8,6 @@
      case 0:
         upgradeDB.createObjectStore('restaurant');
         upgradeDB.createObjectStore('reviews');
-        upgradeDB.createObjectStore('deferred-posts');
      }
  });
 

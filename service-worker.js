@@ -98,7 +98,7 @@ self.addEventListener('sync',function(e){
       }));
   }
 });
-
+// Send new review to the server
 function postNewReview(){
   return getNewReview().then(data=>{
       const fetch_settings = {
@@ -112,7 +112,7 @@ function postNewReview(){
   });
 
 }
-
+// Get the new review from IDB
 function getNewReview(){
   return idb.open('restaurant-data',1).then(db=>{
     return db.transaction('reviews')
@@ -120,27 +120,4 @@ function getNewReview(){
   }).then(data=>{
     return data;
   });
-}
-
-function getReviewOutbox(){
-  // Open the IDB first
-  const dbPromise = idb.open('restaurant-data',1);
-
-
-  // Then get all outbox reviews
-  var deferred_review = dbPromise.then(db =>{
-    return db.transaction('deferred-posts')
-             .objectStore('deferred-posts').getAll();
-  }).then(data=>{
-    return data[0];
-  })
-
-  deferred_review.then(data=>{
-    return dbPromise.then(db =>{
-      const tx = db.transaction('reviews', 'readwrite');
-      tx.objectStore('reviews').put(data,-1);
-      return tx.complete;
-    });
-  })
-  return deferred_review;
 }

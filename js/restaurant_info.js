@@ -67,7 +67,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const star = document.getElementById('star');
 
   // check if the restaurant was set to favourite
-  if (restaurant.is_favorite){
+  if (restaurant.is_favorite == "true"){
     star.setAttribute("class","fas fa-star fav-icon");
   }
   else {
@@ -203,22 +203,21 @@ getParameterByName = (name, url) => {
 }
 
 
-
-
 starFavorize = (restaurant=self.restaurant) =>{
   const star = document.getElementById('star');
   let new_state;
-  if (restaurant.is_favorite == "false"){
-    star.setAttribute("class","fas fa-star fav-icon");
-    new_state = "true";
-  }
-  else {
-    star.setAttribute("class","far fa-star fav-icon");
+  if(star.className == "fas fa-star fav-icon"){
     new_state = "false";
+    star.setAttribute("class","far fa-star fav-icon");
   }
+  else{
+    new_state = "true";
+    star.setAttribute("class","fas fa-star fav-icon");
+  }
+
   fetch(`http://localhost:1337/restaurants/${restaurant.id}/?is_favorite=${new_state}`,{method: 'PUT'})
-    .then(response => {
+    .then((response) => {
       console.log(response);
-      location.reload();
     });
+
 }

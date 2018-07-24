@@ -176,19 +176,46 @@ createRestaurantHTML = (restaurant) => {
   /* Add 'set favourite' link to the box */
   const fav = document.createElement('a');
   const favlabel = document.createAttribute('aria-label');
-  if (restaurant.is_favorite){
-    fav.innerHTML = '<i class="fas fa-star"></i>';
-    favlabel.value = restaurant.name + "Unfavourite";
+  if (restaurant.is_favorite == "true"){
+    fav.innerHTML = `<i id="star-${restaurant.id}" class="fas fa-star"></i>`;
+    favlabel.value = "Unfavourite "+restaurant.name;
   }
   else{
-    fav.innerHTML = '<i class="far fa-star"></i>';
+    fav.innerHTML = `<i id="star-${restaurant.id}" class="far fa-star"></i>`;
     favlabel.value = "Set as favourite";
   }
+  const favonclick = document.createAttribute('onclick');
+  favonclick.value = `starFavorizeIndex(${restaurant.id})`;
+
+  // Add all FAV nodes
+
+  fav.setAttributeNode(favonclick);
   fav.setAttributeNode(favlabel);
   minimenu.append(fav)
 
   return li
 }
+
+starFavorizeIndex = (id, restaurants = self.restaurants) =>{
+  const star = document.getElementById('star-'+parseInt(id));
+  let new_state;
+  // If unfavouriting:
+  if(star.className == "fas fa-star"){
+    new_state = "false";
+    star.setAttribute("class","far fa-star");
+  }
+  else{
+    new_state = "true";
+    star.setAttribute("class","fas fa-star");
+  }
+
+  fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${new_state}`,{method: 'PUT'})
+    .then((response) => {
+      console.log(response);
+    });
+
+}
+
 
 /**
  * Add markers for current restaurants to the map.
