@@ -88,7 +88,6 @@ self.addEventListener('fetch', function(e) {
 // Listen for sync events
 self.addEventListener('sync',function(e){
   if (e.tag === "offlinePostRequest"){
-
       e.waitUntil(postNewReview()
       .then(()=>{
         self.registration.showNotification("New review posted!");
