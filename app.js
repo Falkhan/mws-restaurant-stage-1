@@ -4,7 +4,13 @@ if ('serviceWorker' in navigator && 'SyncManager' in window){
     .then(registration => navigator.serviceWorker.ready)
     .then(registration => {
       Notification.requestPermission();
-      
+
+      // Sync when on index
+
+      if (navigator.onLine){
+          registration.sync.register('offlinePostRequest');
+      }
+
       if (location.pathname == ("/restaurant.html")){
         document.getElementById("review-button").addEventListener("click",()=>{
             DBHelper.reviewHandler().then(()=>{
@@ -21,6 +27,7 @@ if ('serviceWorker' in navigator && 'SyncManager' in window){
             });
         });
       }
+
     })
     .catch(function(err){
       console.log("Service Worker failed to register", err);

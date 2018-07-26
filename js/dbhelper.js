@@ -130,6 +130,7 @@ class DBHelper {
      tx.objectStore('outbox').put(new_review);
      return tx.complete;
    });
+   debugger;
  }
 
 
@@ -269,19 +270,4 @@ class DBHelper {
     return marker;
   }
 
-  static offlineNotification(){
-    var offline_notification = document.getElementById("offline_notification");
-    if (navigator.onLine){
-      offline_notification.className = "hideOffline";
-    }
-    else{
-      offline_notification.className = "showOffline";
-    }
-  }
-
-
 }
-window.addEventListener('load',()=>{
-  window.addEventListener('offline', DBHelper.offlineNotification());
-  window.addEventListener('online', DBHelper.offlineNotification());
-})

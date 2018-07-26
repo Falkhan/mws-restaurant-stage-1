@@ -88,19 +88,15 @@ self.addEventListener('fetch', function(e) {
 // Listen for sync events
 self.addEventListener('sync',function(e){
   if (e.tag === "offlinePostRequest"){
-      e.waitUntil(postNewReview()
-      .then(()=>{
-        self.registration.showNotification("New review posted!");
-      })
-      .catch(()=>{
-        console.error("Couldn't sync with the server!");
-      }));
+    e.waitUntil(postNewReview());
   }
 });
 
 // Send new reviews to the server
 function postNewReview(){
   return getNewReview().then(data=>{
+    console.log();
+    if(data.length > 0){
       for (var i = 0; i<data.length; i++){
         var fetch_settings = {
           method: 'POST',
@@ -111,7 +107,9 @@ function postNewReview(){
         };
         fetch('http://localhost:1337/reviews/', fetch_settings);
       }
-      return;
+      self.registration.showNotification("New review posted!");
+    }
+    return;
   });
 
 }
