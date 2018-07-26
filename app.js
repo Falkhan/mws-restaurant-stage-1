@@ -4,10 +4,18 @@ if ('serviceWorker' in navigator && 'SyncManager' in window){
     .then(registration => navigator.serviceWorker.ready)
     .then(registration => {
       Notification.requestPermission();
+      
       if (location.pathname == ("/restaurant.html")){
         document.getElementById("review-button").addEventListener("click",()=>{
             DBHelper.reviewHandler().then(()=>{
-              registration.sync.register('offlinePostRequest');
+              if (navigator.onLine){
+                registration.sync.register('offlinePostRequest');
+              }
+              else {
+                window.addEventListener("online",()=>{
+                registration.sync.register('offlinePostRequest');
+                })
+              }
             }).catch(err=>{
               console.error(err);
             });

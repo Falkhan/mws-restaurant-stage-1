@@ -8,6 +8,8 @@
      case 0:
         upgradeDB.createObjectStore('restaurant');
         upgradeDB.createObjectStore('reviews');
+        upgradeDB.createObjectStore('outbox',{autoIncrement:true});
+
      }
  });
 
@@ -90,8 +92,14 @@ class DBHelper {
       return dbPromise.then(db=>{
          return db.transaction('reviews','readwrite')
                   .objectStore('reviews').getAll();
-         }).then(data =>{
-           return data.filter(r => r.restaurant_id == id);
+         }).then(review_data =>{
+            return dbPromise.then(db=>{
+                    return db.transaction('outbox','readwrite')
+                            .objectStore('outbox').getAll()})
+                            .then(outbox_data =>{
+                              var data = review_data.concat(outbox_data);
+                              return data.filter(r => r.restaurant_id == id);
+                            });
          });
  });
  }
@@ -118,26 +126,12 @@ class DBHelper {
    document.getElementById("review-posted").className = "thanks-turned-on";
    document.getElementById("reviews-list").prepend(createReviewHTML(new_review));
    return dbPromise.then(db=>{
-     const tx = db.transaction('reviews','readwrite');
-     tx.objectStore('reviews').put(new_review,-1);
+     const tx = db.transaction('outbox','readwrite');
+     tx.objectStore('outbox').put(new_review);
      return tx.complete;
    });
  }
 
-/**
- * Set a restaurant to favourite or not
-
-  static setFavouriteRestaurant(id){
-   const restaurant_index = id - 1;
-
-   // Create a new transaction
-   dbPromise.then(db => {
-     const tx = db.transaction('restaurant', 'readwrite');
-     tx.objectStore('restaurant').put()
-   })
-
-  }
-*/
 
   /**
    * Fetch a restaurant by its ID.
@@ -275,4 +269,19 @@ class DBHelper {
     return marker;
   }
 
+  static offlineNotification(){
+    var offline_notification = document.getElementById("offline_notification");
+    if (navigator.onLine){
+      offline_notification.className = "hideOffline";
+    }
+    else{
+      offline_notification.className = "showOffline";
+    }
+  }
+
+
 }
+window.addEventListener('load',()=>{
+  window.addEventListener('offline', DBHelper.offlineNotification());
+  window.addEventListener('online', DBHelper.offlineNotification());
+})

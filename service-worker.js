@@ -97,26 +97,43 @@ self.addEventListener('sync',function(e){
       }));
   }
 });
-// Send new review to the server
+
+// Send new reviews to the server
 function postNewReview(){
   return getNewReview().then(data=>{
-      const fetch_settings = {
-        method: 'POST',
-        headers:{
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      };
-      return fetch('http://localhost:1337/reviews/', fetch_settings);
+      for (var i = 0; i<data.length; i++){
+        var fetch_settings = {
+          method: 'POST',
+          headers:{
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(data[i])
+        };
+        fetch('http://localhost:1337/reviews/', fetch_settings);
+      }
+      return;
   });
 
 }
 // Get the new review from IDB
 function getNewReview(){
-  return idb.open('restaurant-data',1).then(db=>{
-    return db.transaction('reviews')
-             .objectStore('reviews').get(-1);
+
+  // Get all new reviews
+  var dbPromise = idb.open('restaurant-data',1)
+  return dbPromise.then(db=>{
+    return db.transaction('outbox')
+             .objectStore('outbox').getAll();
+
   }).then(data=>{
+
+    // Clear the outbox
+    dbPromise.then(db=>{
+      const tx = db.transaction('outbox','readwrite');
+      tx.objectStore('outbox').clear();
+      return tx.complete;
+
+    })
+
     return data;
   });
 }
